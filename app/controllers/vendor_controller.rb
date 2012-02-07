@@ -1,0 +1,88 @@
+# encoding: utf-8
+class VendorController < ApplicationController
+  #检查是否login
+  before_filter :cur_user,:authorize
+
+  def authorize
+    unless @cur_user.org.instance_of?(VendorOrg)
+      redirect_to users_login_url
+    end
+  end
+
+  #get 'vendor/briefs'=>:briefs,:as=>'vendor_briefs'
+  def briefs
+    @brief_vendors = BriefVendor.find_all_by_org_id(@cur_user.org_id)
+  end
+
+  #get 'vendor/briefs/:id'=>:show_brief,:as=>'vendor_show_brief'
+  def show_brief
+    @brief = Brief.find(params[:id])
+    @brief_vendor = @brief.brief_vendors.find_by_org_id(@cur_user.org_id)
+    invalid_op unless @brief_vendor
+
+    @designs = @brief_vendor.designs
+    @design_total = @brief_vendor.design_total
+
+    @products = @brief_vendor.products
+    @product_total = @brief_vendor.product_total
+
+    @trans_items = @brief_vendor.trans_items
+    @trans_total = @brief_vendor.trans_total
+
+    @others = @brief_vendor.others
+    @other_total = @brief_vendor.other_total
+
+    @total = @design_total + @product_total + @trans_total + @other_total
+  end
+
+  #get 'vendor/briefs/:brief_id/items/:item_id/price/edit' =>:item_edit,
+  #  :as=>'vendor_edit_price'
+  def item_edit_price
+    @brief = Brief.find(params[:brief_id])
+    @brief_vendor = @brief.brief_vendors.find_by_org_id(@cur_user.org_id)
+    invalid_op unless @brief_vendor
+    @item = @brief_vendor.items.find_by_id(params[:item_id])
+    invalid_op unless @item
+    @action_to = vendor_item_update_price_path
+  end
+
+  #put 'vendor/briefs/:brief_id/items/:item_id/price/update' =>:item_update_price,
+  #  :as=>'vendor_item_update_price'
+  def item_update_price
+    @brief = Brief.find(params[:brief_id])
+    @brief_vendor = @brief.brief_vendors.find_by_org_id(@cur_user.org_id)
+    invalid_op unless @brief_vendor
+    @item = @brief_vendor.items.find_by_id(params[:item_id])
+    invalid_op unless @item
+    
+    @item.price = params[:item][:price]
+    @item.save
+
+    redirect_to vendor_show_brief_path(@brief)
+
+  end
+
+  #get 'vendor/briefs/:brief_id/items/new/(:kind)' => :item_new,
+  #    :as=>'vendor_item_new'
+  def item_new
+    @brief = Brief.find(params[:brief_id])
+    @item = Item.new
+    @item.kind = params[:kind]
+    @action_to = vendor_item_create_path(@brief,@item.kind)
+  end
+
+  #get 'vendor/briefs/:brief_id/items/edit' => :item_edit,
+  #    :as=>'vendor_item_edit'
+  def item_edit
+  end
+
+  #post 'vendor/briefs/:brief_id/items/(:kind)' => :item_create,
+  #    :as=>'vendor_item_create'
+  def item_create
+    @brief = Brief.find(params[:brief_id])
+    @brief_vendor = @brief.brief_vendors.find_by_org_id(@cur_user.org_id)
+    invalid_op unless @brief_vendor
+    @brief_vendor.items << Item.new(params[:item]){|r|r.kind = params[:kind]}
+    redirect_to vendor_show_brief_path(@brief)
+  end
+end

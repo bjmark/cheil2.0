@@ -1,0 +1,37 @@
+<%=form_tag create_many_solution_items_path(:solution_id=>@solution.id) do%>
+  <table class="">
+    <tr>
+      <th>序号</th>
+      <th>名称</th>
+      <th>数量</th>
+      <th>说明</th>
+      <th>类型</th>
+    </tr>
+    <%@item_count.times do |n|%>
+      <tr>
+        <td><%=n+1%></td>
+        <td><%=text_field_tag (s="name_#{n}"),params[s]%></td>
+        <td><%=text_field_tag (s="quantity_#{n}"),params[s]%></td>
+        <td><%=text_field_tag (s="note_#{n}"),params[s]%></td>
+        <td>
+          <select name="<%="kind_#{n}"%>" size="1">
+            <option value="tran" label="tran" <%=item_kind_selected(n,'tran',@kind_default)%>>
+            运输
+            </option>
+            <option value="other" label="other" <%=item_kind_selected(n,'other',@kind_default)%>>
+            其他
+            </option>
+          </select> 
+        </td>
+      </tr>
+    <%end%>
+  </table>
+  <%=button_tag(:type=>:submit,:id=>'b1',:name=>'save_many') do%>
+    <%='保存'%>
+  <%end%>
+  <%=button_tag '增加5个运输',:type=>:submit,:name=>'add_5_tran'%>
+  <%=button_tag '增加5个其他',:type=>:submit,:name=>'add_5_other'%>
+  &nbsp;&nbsp;
+  <%=link_to '取消',vendor_solution_path(@solution)%>
+<%end%>
+

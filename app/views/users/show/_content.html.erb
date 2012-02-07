@@ -1,0 +1,33 @@
+<%
+  #users/_content
+#user
+%>
+
+<p>
+<b><%= user.org.class.type_name%>:</b>
+<%= user.org.name %>
+</p>
+<p>
+<b>用户名:</b>
+<%= user.name %>
+</p>
+
+<p>
+<b>用户名:</b>
+<%= user.name %>
+</p>
+
+<p>
+<b>Email:</b>
+<%= user.email %>
+</p>
+
+<p>
+<b>电话:</b>
+<%= user.phone %>
+</p>
+
+<%= link_to '修改', edit_user_path(user) %>
+|
+<%= link_to '删除', user,:method=>'delete',:confirm=>'确定吗？' %>
+

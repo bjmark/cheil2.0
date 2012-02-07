@@ -1,0 +1,31 @@
+<%
+  #vendor_solutions/items/_kind
+#locals =>brief,items,kind_cn
+%>
+<%n=0
+items.each do |e|%>
+  <tr class="<%=['odd','even'][(n+=1)%2]%>">
+    <%n.upto(1)do %>
+      <td colspan="1" rowspan="<%=items.length%>"><%=kind_cn%></td>
+    <%end%>
+    <td>
+      <%='*' if e.checked?%>
+      <%if e.op.read?(@cur_user.id)%>
+        <%= e.name  %>
+      <%else%>
+        <%e.op.read_by(@cur_user.id)%>
+        <span style="<%=unread_color%>">
+          <%= e.name  %>
+        </span>
+      <%end%>
+    </td>
+    <td><%= e.quantity  %></td>
+    <td><%= e.note  %></td>
+    <td><%= e.price  %></td>
+    <td><%= e.total if e.total > 0 %></td>
+    <td class="last">
+      <%=raw(vendor_solution_item_link(e))%>
+    </td>
+  </tr>
+<%end%>
+

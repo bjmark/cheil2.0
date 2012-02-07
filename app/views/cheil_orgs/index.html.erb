@@ -1,0 +1,9 @@
+<%
+  # cheil_orgs/index
+# @cheil_orgs
+%>
+<%=render 'share/block',
+  :title=>'Cheil列表',
+  :content=>{:partial=>'cheil_orgs/index/content',
+    :locals=>{:cheil_orgs=>@cheil_orgs}} unless @cheil_orgs.empty?%>
+

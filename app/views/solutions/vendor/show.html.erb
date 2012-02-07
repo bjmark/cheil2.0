@@ -1,0 +1,27 @@
+<%
+  #solutions/vendor/show 
+# @brief,@solution
+%>
+<%=render 'share/block',
+  :nav=>{:partial=>'briefs/vendor/nav',
+    :locals=>{:brief=>@solution.brief,:solution=>@solution}},
+    :contents=>[{:partial=>'solutions/vendor/links',:locals=>{:solution=>@solution}}
+]
+%>
+<%=attaches(@solution)%>
+
+<%=render 'share/block',
+  :title=>'子项',
+  :content=>{:partial=>'solutions/vendor/items/index',
+    :locals=>{:solution=>@solution,:total=>@solution.total}
+} unless @solution.items.empty?%>
+
+<%=render 'share/block',
+  :title=>'付款',
+  :content=>{:partial=>'solutions/vendor/payment/show'
+} if @solution.brief.cheil_solution.approved?%>
+
+
+<%=comments(@solution)%>
+
+

@@ -1,0 +1,29 @@
+<%
+  #partial=>_content
+#locals=>cheil_orgs
+%>
+<table class="table">
+  <tbody>
+    <tr>
+      <th>Cheil</th>
+      <th>对应RPM</th>
+      <th>Cheil用户</th>
+      <th></th>
+    </tr>
+
+    <% cheil_orgs.each do |r| %>
+      <tr>
+        <td><%= r.name %></td>
+        <td><%= r.rpm_org.name %></td>
+        <td> 
+          <% r.users.each  do |e| %>
+            <%= link_to e.name,user_path(e) %>
+          <%end%> 
+        </td>
+        <td class="last"><%= link_to '新建用户', new_user_path(:org_id=>r.id) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+

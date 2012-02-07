@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cheil App</title>
+  <%= stylesheet_link_tag 'web_app_theme' %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+  <div id="container">
+    <div id="header">
+      <h1><a href="/">Cheil App</a></h1>
+      <div id="user-navigation">
+        <ul class="wat-cf">
+          <li><%= link_to '帮助',page_path('help') %></li>
+          <li><%= link_to '帐号',user_path('cur') %></li>
+          <li>
+          <%= link_to '退出', session_path, :method => :delete,:class=>'logout'   %>
+          </li>
+
+        </ul>
+      </div>
+      <div id="main-navigation">
+        <ul class="wat-cf"></ul>
+      </div>
+    </div>    
+    <div id="wrapper" class="wat-cf">
+      <div class="flash">
+        <% flash.reject{|k,v| k==:dest}.each do |type, message| -%>
+          <div class="message <%= type %>">
+            <p><%= message %></p>
+          </div>
+        <% end -%>
+      </div>
+      <div id="main">
+        <%= yield %>
+      </div>
+      <div id="sidebar">
+        <% @sidebar.each do |e|%>
+          <%=render e%>
+        <%end%>
+      </div>
+    </div>    
+  </div>
+</body>
+</html>

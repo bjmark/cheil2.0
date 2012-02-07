@@ -1,0 +1,39 @@
+<h1>项目显示</h1>
+<table>
+  <tr>
+    <th>id</th>
+    <th>名称</th>
+    <th>客户</th>
+    <th>指派日期</th>
+  </tr>
+  <tr>
+    <td><%= @brief.id  %></td>
+    <td><%= simple_format(@brief.name)  %></td>
+    <td><%= @brief.org.name%></td>
+    <td><%= short_d(@brief_vendor.created_at)%></td>
+  </tr>
+</table>
+<br/>
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2"
+  cellspacing="2">
+  <tbody>
+    <tr>
+      <td></td>
+      <td >名称</td>
+      <td>数量</td>
+      <td>单价</td>
+      <td>合计</td>
+      <td></td>
+    </tr>
+    <%=render 'table1',:items=>@designs,:total=>@design_total,:kind=>'设计'%>
+    <%=render 'table1',:items=>@products,:total=>@product_total,:kind=>'制作'%>
+    <%=render 'table2',:items=>@trans_items,:total=>@trans_total,:kind=>'trans',:kind_cn=>'运输'%>
+    <%=render 'table2',:items=>@others,:total=>@other_total,:kind=>'other',:kind_cn=>'其他'%>
+    <tr>
+      <td colspan="6" rowspan="1">
+        共计:<%=@total%><br/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+

@@ -1,0 +1,40 @@
+<%
+  #solutions/rpm/items/_kind
+#checked_items,items,kind_cn
+%>
+<%n=0
+checked_items.each do |e|%>
+  <tr class="<%=['odd','even'][(n+=1)%2]%>">
+    <%n.upto(1)do %>
+      <td colspan="1" rowspan="<%=checked_items.length+items.length%>">
+        <%=kind_cn%>
+      </td>
+    <%end%>
+    <td><%= e.name  %></td>
+    <td><%= e.quantity  %></td>
+    <td><%= e.note  %></td>
+    <td><%= e.price  %></td>
+    <td><%= e.total if e.total > 0 %></td>
+    <td><%= e.solution.org.name %></td>
+    <td class="last">
+    </td>
+  </tr>
+<%end%>
+<%items.each do |e|%>
+  <tr class="<%=['odd','even'][(n+=1)%2]%>">
+    <%n.upto(1)do %>
+      <td colspan="1" rowspan="<%=items.length%>">
+        <%=kind_cn%>
+      </td>
+    <%end%>
+    <td><%= e.name  %></td>
+    <td><%= e.quantity  %></td>
+    <td><%= e.note  %></td>
+    <td><%= e.price  %></td>
+    <td><%= e.total if e.total > 0 %></td>
+    <td><%= e.solution.org.name %></td>
+    <td class="last">
+    </td>
+  </tr>
+<%end%>
+

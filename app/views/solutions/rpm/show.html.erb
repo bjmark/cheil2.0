@@ -1,0 +1,32 @@
+<%
+  #solutions/rpm/show 
+#@solution
+%>
+<%=render 'share/block',
+  :nav=>{:partial=>'briefs/rpm/nav',
+    :locals=>{:brief=>@solution.brief}},
+    :contents=>[{:partial=>'solutions/rpm/links',
+      :locals=>{:solution=>@solution}}
+]
+%>
+<%=render 'share/block',
+      :title=>'附件',
+      :content=>{:partial=>'solutions/rpm/attaches/index',
+        :locals=>{:solution=>@solution}} unless 
+(@solution.attaches.empty? and @solution.checked_attaches.empty?)
+%>
+
+<%=render 'share/block',
+  :title=>'子项',
+  :content=>{:partial=>'solutions/rpm/items/index',
+    :locals=>{:solution=>@solution,:total=>@solution.total}
+} unless @solution.items.empty? and @solution.checked_items.empty?
+%>
+<%=render 'share/block',
+  :title=>'付款',
+  :content=>{:partial=>'solutions/rpm/payment/show'
+} if @solution.approved?%>
+
+<%=comments(@solution)%>
+
+

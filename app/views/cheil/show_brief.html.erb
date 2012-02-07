@@ -1,0 +1,24 @@
+<h1>brief显示</h1>
+<%=link_to '选择Vendor',cheil_sel_brief_vendor_path(@brief)%>
+<%=link_to '新建评论',cheil_new_brief_comment_path(@brief)%>
+<%=render 'rpm/brief',
+  :brief => @brief,
+  :brief_creator => @brief_creator
+%>
+<%=render 'brief_attaches',
+  :brief => @brief,
+  :brief_attaches => @brief_attaches
+%>
+<br/>
+<%=render 'brief_items',
+  :brief => @brief,
+  :brief_items => @brief_items,
+  :brief_designs => @brief_designs,
+  :brief_products => @brief_products
+%>
+<br/>
+<%=render 'brief_vendors',
+  :brief => @brief,
+  :vendors => @vendors
+%>
+

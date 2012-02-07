@@ -1,0 +1,55 @@
+<%= form_tag search_res_briefs_path,:class=>'form login',:method=>'get' do %>
+  <br/>
+  <br/>
+  <div class="group">
+    名称:
+    <%=text_field_tag :name,params[:name],:size=>'10'%>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    期限:
+    <%=text_field_tag :deadline1,params[:deadline1],:placeholder=>'2011-11-24',:size=>10%> 
+    -
+    <%=text_field_tag :deadline2,params[:deadline2],:placeholder=>'2011-12-1',:size=>10%> 
+    日期格式:2011-11-28
+  </div>
+  <div class="group">
+    创建日期:
+    <%=text_field_tag :create_date1,params[:create_date1],:placeholder=>'2011-11-24',:size=>10%> 
+    -
+    <%=text_field_tag :create_date2,params[:create_date2],:placeholder=>'2011-12-1',:size=>10%> 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    更新日期:
+    <%=text_field_tag :update_date1,params[:update_date1],:placeholder=>'2011-11-24',:size=>10%> 
+    -
+    <%=text_field_tag :update_date2,params[:update_date2],:placeholder=>'2011-12-1',:size=>10%> 
+  </div>
+
+  <div class="group">
+    状态:
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <%=radio_button_tag :status,'all',(params[:status].blank? or params[:status] == 'all')%>
+    全部
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <%=radio_button_tag :status,'1',(params[:status] == '1')%>
+    方案中
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <%=radio_button_tag :status,'2',(params[:status] == '2')%>
+    待审定
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <%=radio_button_tag :status,'3',(params[:status] == '3')%>
+    执行中
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <%=radio_button_tag :status,'4',(params[:status] == '4')%>
+    完成
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </div>
+  <div class="group navform wat-cf">
+    <button class="button" type="submit">
+      搜索
+    </button>
+  </div>
+<% end %>
+

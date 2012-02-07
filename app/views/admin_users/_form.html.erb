@@ -1,0 +1,28 @@
+<%= form_for(@admin_user,:html=>{:class=>'form'}) do |f| %>
+  <div class="group">
+    <%= f.label :name,'用户名',:class=>'label' %>
+    <%= f.text_field :name,:class=>'text_field' %>
+  </div>
+  <div class="group">
+    <%= f.label :password,'密码',:class=>'label' %>
+    <%= f.password_field :password,:class=>'text_field' %>
+  </div>
+  <div class="group">
+    <%= f.label :email,:class=>'label' %>
+    <%= f.text_field :email,:class=>'text_field' %>
+  </div>
+  <div class="group">
+    <%= f.label :phone,'电话',:class=>'label' %>
+    <%= f.text_field :phone,:class=>'text_field' %>
+  </div>
+
+  <div class="group navform wat-cf">
+    <button class="button" type="submit">
+      提交
+    </button>
+    <span class="text_button_padding">或</span>
+    <%= link_to '取消', @back,:class=>'text_button_padding link_button' %>
+  </div>
+<% end %>
+
+
